@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ProTrakr.Views.ClientDetailPage"
+    xmlns:behavior="clr-namespace:ProTrakr.Behaviors;assembly=ProTrakr"
+    Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+	<ContentPage.Content>
+        <StackLayout>
+            <TableView Intent="Data">
+                <TableRoot>
+                    <TableSection Title="Client Details">
+                        <EntryCell Label="Name" Text="{Binding Client.Name}"/>
+                        <EntryCell Label="Location" Text="{Binding Client.Location}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Grid>
+                <Label HorizontalOptions="CenterAndExpand" FontAttributes="Bold" Text="Projects"/>
+                <Button HorizontalOptions="EndAndExpand" Text="New Project"/>
+            </Grid>
+            <ListView ItemsSource="{Binding Client.Projects}">
+                <ListView.Behaviors>
+                    <behavior:EventToCommandBehavior Command="{Binding DetailCommand}" 
+                        EventName="ItemTapped"
+                        EventArgsParameterPath="Item"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}" Detail="{Binding StartDate}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

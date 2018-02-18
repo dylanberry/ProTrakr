@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ProTrakr.Views.ClientListPage"
+    xmlns:behavior="clr-namespace:ProTrakr.Behaviors;assembly=ProTrakr"
+    Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New Client" Command="{Binding NewCommand}" />
+    </ContentPage.ToolbarItems>
+	<ContentPage.Content>
+        <ListView ItemsSource="{Binding ClientList}">
+            <ListView.Behaviors>
+                <behavior:EventToCommandBehavior Command="{Binding DetailCommand}" 
+                    EventName="ItemTapped"
+                    EventArgsParameterPath="Item"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" Detail="{Binding Location}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+	</ContentPage.Content>
+</ContentPage>
